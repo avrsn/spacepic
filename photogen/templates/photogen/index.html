@@ -1,0 +1,25 @@
+﻿<html>
+<head>
+    <title>Spacepic Website</title>
+    <body>
+
+
+        <p>How many photos would you like? (max. 5)</p>
+        <p>NUMBERS BOX</p>
+        <p>SUBMIT BUTTON</p>
+
+        {% if images %}
+            <ol>
+                {% for image in images %}
+                <li> 
+                    <img src="{{image.image_url.url}}" height="200" width="200" /> </br>
+                    <p style="color: lightblue;"><u>Download</u></p>
+                </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>No images are available.</p>
+        {% endif %}
+    </body>
+</head>
+</html>
