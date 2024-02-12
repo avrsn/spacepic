@@ -3,10 +3,11 @@
     <title>Spacepic Website</title>
     <body>
 
-
+        <h1>SPACEPIC</h1>
         <p>How many photos would you like? (max. 5)</p>
-        <p>NUMBERS BOX</p>
-        <p>SUBMIT BUTTON</p>
+        <label for="numphotos">Number of photos:</label>
+        <input type="number" id="numphotos" min="1" max="5" />
+        <input type="submit" value="Submit" />
 
         {% if images %}
             <ol>
