@@ -11,26 +11,21 @@
             <button type="submit">Submit</button>
         </form>
 
-        {% if form %}
-        <h1>Yes form</h1>
-        <h2>{{ text }}</h2>
-        {% else %}
-        <p>No Form</p>
+        {% if form_validation_error_message %}
+        <h1>{{ form_validation_error_message }}</h1>
         {% endif %}
-
-
 
         {% if images %}
         <ol>
             {% for key, image in images.items %}
             <li>
                 <img src="{{image}}" height="200" width="200" /> </br>
-                <p style="color: lightblue;"><u>Download</u></p>
+                <a href="{{ image }}" download>Download</a>           
             </li>
             {% endfor %}
         </ol>
         {% else %}
-        <p>No images are available.</p>
+        
         {% endif %}
     </body>
 </head>

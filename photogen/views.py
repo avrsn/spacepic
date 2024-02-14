@@ -55,6 +55,8 @@ def index(request):
 
             return HttpResponse(template.render(context, request))
         else:
-            return HttpResponse('Form not valid???')
+            
+            context['form_validation_error_message'] = "Please enter a number between 1 and 5."
+            return HttpResponse(template.render(context, request))
     else:
         return HttpResponse(template.render(context, request))   
