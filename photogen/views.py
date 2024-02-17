@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import RandomImage
+from .models import SessionZip
 from django.template import loader
 from .forms import HomeForm
 import requests
@@ -38,16 +38,21 @@ def index(request):
                     return HttpResponse("FAILED2")
 
 
+            session_zip = SessionZip(session_id=1)
+
             zip_buffer = io.BytesIO()
             with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
                 for i, image in enumerate(zippable):
                     zip_file.writestr(f'image_{i}.jpg', image)
+                    
                     
             zip_buffer.seek(0)
             
             #response = HttpResponse(zip_buffer, content_type='application/zip')
             #response['Content-Disposition'] = 'attachment; filename=images.zip'
            
+            session_zip.file_download.save("pictures", zip_buffer)
+            session_zip.save()
             
             context = {
                 "zip": zip_buffer,
@@ -64,3 +69,11 @@ def index(request):
     else:
         return HttpResponse(template.render(context, request)) 
     
+def results(request):
+    
+    my_instance = get_object_or_404(SessionZip, session_id=1)
+    
+    response = HttpResponse(my_instance.file_download, content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=images.zip'
+    
+    return response
