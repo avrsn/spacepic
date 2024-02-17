@@ -7,6 +7,7 @@ import requests
 import base64
 import zipfile
 import io
+import random
 
 
 # Create your views here.
@@ -37,8 +38,8 @@ def index(request):
                 else:
                     return HttpResponse("FAILED2")
 
-
-            session_zip = SessionZip(session_id=1)
+            request.session['session'] = random.randint(1, 10000)
+            session_zip = SessionZip(session_id=request.session['session'])
 
             zip_buffer = io.BytesIO()
             with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
@@ -53,6 +54,8 @@ def index(request):
            
             session_zip.file_download.save("pictures", zip_buffer)
             session_zip.save()
+            
+            
             
             context = {
                 "zip": zip_buffer,
@@ -71,7 +74,7 @@ def index(request):
     
 def results(request):
     
-    my_instance = get_object_or_404(SessionZip, session_id=1)
+    my_instance = get_object_or_404(SessionZip, session_id=request.session['session'])
     
     response = HttpResponse(my_instance.file_download, content_type='application/zip')
     response['Content-Disposition'] = 'attachment; filename=images.zip'

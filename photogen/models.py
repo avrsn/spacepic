@@ -8,5 +8,5 @@ from django.db import models
 #    3 Run python manage.py migrate to apply those changes to the database.  
 
 class SessionZip(models.Model):
-    session_id = models.CharField(max_length=12)
+    session_id = models.PositiveBigIntegerField(primary_key=True)
     file_download = models.FileField(upload_to='zip_files/', default="")
