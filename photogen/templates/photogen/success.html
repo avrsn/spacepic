@@ -3,19 +3,19 @@
 {% block images %}
 
     {% if zip %}
-        <a href="{% url 'results' %}">Link to results aka zip</a>
+        <a class="download-all" href="{% url 'results' %}">Download all</a>
     {% endif %}
 
     {% if images %}
 
-        <ol>
-            {% for key, image in images.items %}
-            <li>
-                <img src="{{image}}" height="200" width="200" /> </br>
-                <a href="{{ image }}" download>Download</a>
-            </li>
-            {% endfor %}
-        </ol>
+<ol>
+    {% for key, image in images.items %}
+    <li>
+        <img src="{{image}}" height="200" width="200" /> </br>
+        <a href="{{ image }}" download>Download</a>
+    </li>
+    {% endfor %}
+</ol>
     {% else %}
     {% endif %}
 {% endblock %}
