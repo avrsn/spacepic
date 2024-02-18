@@ -1,10 +1,10 @@
 ﻿<html>
 <head>
-    <title>Spacepic Website</title>
+    <title>Pretty Pics</title>
     <body>
 
-        <h1>SPACEPIC</h1>
-        <p>How many photos would you like? (max. 5)</p>
+        <h1>Pretty Pics</h1>
+        <p>How many pics? (max. 5)</p>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -15,22 +15,10 @@
         <h1>{{ form_validation_error_message }}</h1>
         {% endif %}
 
-        {% if zip %}
-        <a href="{% url 'results' %}">Link to results aka zip</a>
-        {% endif %}
+        {% block images %}
 
-        {% if images %}
-        <ol>
-            {% for key, image in images.items %}
-            <li>
-                <img src="{{image}}" height="200" width="200" /> </br>
-                <a href="{{ image }}" download>Download</a>
-            </li>
-            {% endfor %}
-        </ol>
-        {% else %}
 
-        {% endif %}
+        {% endblock %}
     </body>
 </head>
 </html>
